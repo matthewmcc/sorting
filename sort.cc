@@ -4,6 +4,7 @@
 #include "Sorting.h"
 #include "Bubble.h"
 #include "Insertionsort.h"
+#include "Selection.h"
 #include "Mergesort.h"
 #include "Mergesort_inplace.h"
 #include "Quicksort.h"
@@ -26,17 +27,17 @@ int main(int argc, char* argv[]) {
 		list.push_back(rand());
 	}
 
-	// Runs insertion sort on the random list 
-	Insertionsort insertion(list, listsize);
-	insertion.sort();
+	// Runs merge cort in place on a random linked list
+	Mergesort_inplace mergeip(list, listsize);
+	mergeip.sort();
 
 	// Runs an in place quick sort on the random list 
 	Quicksort_inplace quickip(list, listsize);
 	quickip.sort();
 
-	// Runs merge cort in place on a random linked list
-	Mergesort_inplace mergeip(list, listsize);
-	mergeip.sort();
+	// Runs a simple merge on the random list
+	Mergesort merge(list, listsize);
+	merge.sort();
 
 	// Runs a simple quicksort on the random list
 	Quicksort quick(list, listsize);
@@ -46,9 +47,13 @@ int main(int argc, char* argv[]) {
 	Quicksort_med3 quickmed(list, listsize);
 	quickmed.sort();
 
-	// Runs a simple merge on the random list
-	Mergesort merge(list, listsize);
-	merge.sort();
+	// Runs insertion sort on the random list 
+	Insertionsort insertion(list, listsize);
+	insertion.sort();
+
+	// Runs Selection sort on the random list 
+	Selection select(list, listsize);
+	select.sort();
 
 	// Runs a bubble sort on the random list 
 	Bubble bubble(list, listsize);

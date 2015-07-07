@@ -44,10 +44,6 @@ void Insertionsort::insertion() {
 				break;
 			}
 		}
-
-		std::cout << std::endl;
-		for (int i : sortedlist)
-			std::cout << i << std::endl;
 	}
 
 	list = sortedlist;
