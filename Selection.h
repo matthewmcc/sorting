@@ -30,7 +30,7 @@ void Selection::sort() {
 
 // Selection algorithm
 void Selection::select() {
-	int nextindex = 0, temp;
+	int nextindex = 0;
 
 	// Loop to add next smallest to the next position of the list
 	for (int pass = 0; pass < listsize - 1; pass++) {
@@ -44,8 +44,6 @@ void Selection::select() {
 		}
 
 		// Moving the next smallest to the correct index
-		temp = list[pass];
-		list[pass] = list[nextindex];
-		list[nextindex] = temp;
+		std::swap(list[pass], list[nextindex]);
 	}
 }

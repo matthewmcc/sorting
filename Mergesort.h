@@ -38,15 +38,18 @@ std::vector<int> Mergesort::merge(std::vector<int> &mlist, int msize) {
 
 	std::vector<int> left, right;
 
+	// Splits vector mlist into 2 even lists
 	for (int i = 0; i < m; i++)
 		left.push_back(mlist[i]);
 
 	for (; m < msize; m++) 
 		right.push_back(mlist[m]);
 
+	// Recursively calls merge on the 2 new lists
 	left = merge(left, left.size());
 	right = merge(right, right.size());
 
+	// Merges the 2 ordered lists and returns result
 	return vectormerge(left, right);
 }
 
@@ -59,10 +62,11 @@ inline std::vector<int> Mergesort::vectormerge(const std::vector<int>& left,
 	int l = 0, r = 0;
 
 	while(true) {
-		// std::cout << l << " : " << r << std::endl;
+		// Pushs from the larger value of the 2 lists to mlist
 		if(left[l] < right[r]) {
 			mlist.push_back(left[l]);
 			l++;
+
 			if(l >= left.size()) {
 				for(; r < right.size(); r++) {
 					mlist.push_back(right[r]);
@@ -73,6 +77,7 @@ inline std::vector<int> Mergesort::vectormerge(const std::vector<int>& left,
 		else{
 			mlist.push_back(right[r]);
 			r++;
+
 			if(r >= right.size()) {
 				for(; l < left.size(); l++) {
 					mlist.push_back(left[l]);
@@ -82,5 +87,3 @@ inline std::vector<int> Mergesort::vectormerge(const std::vector<int>& left,
 		}
 	}
 }
-
-

@@ -76,10 +76,10 @@ Linkedlist Sorting::vectortolink() {
 	return ll;
 }
 
+// Functions used for timing the algorithms
 void Sorting::starttimer() {
     start = std::clock();
 }
-
 void Sorting::stoptimer(std::string sortname) {
     std::cout << '\r' << sortname << " duration: " << ( std::clock() - start ) / (double) CLOCKS_PER_SEC << " secs" << std::endl;
 }

@@ -30,7 +30,7 @@ void Bubble::sort() {
 
 void Bubble::bubble() {
 	bool swap = true;
-	int temp, pass = 0;
+	int pass = 0;
 
 	while(swap) {
 		swap = false;
@@ -41,9 +41,7 @@ void Bubble::bubble() {
 		for(int i = 0; i < listsize - pass; i++) {
 			if (list[i] > list[i + 1]) {
 				swap = true;
-				temp = list[i];
-				list[i] = list[i + 1];
-				list[i + 1] = temp;
+				std::swap(list[i], list[i + 1]);
 			}
 		}
 	}

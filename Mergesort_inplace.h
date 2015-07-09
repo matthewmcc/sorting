@@ -95,7 +95,7 @@ Linkedlist Mergesort_inplace::merge(Linkedlist &ll) {
 		}
 	}
 	else {
-		newlink.tail->node = lnode;\
+		newlink.tail->node = lnode;
 
 		// Sets tail to the end of the left list
 		newlink.tail = ll.tail;
@@ -105,12 +105,3 @@ Linkedlist Mergesort_inplace::merge(Linkedlist &ll) {
 
 	return newlink;
 }
-
-
-
-
-
-
-
-
-

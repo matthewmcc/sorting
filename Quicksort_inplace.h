@@ -30,29 +30,21 @@ void Quicksort_inplace::sort() {
 
 void Quicksort_inplace::quick(int f, int l) {
 	int pivot = list[l], i = f, j = f;
-	int temp;
 
 	for (int x = f; x <= l; x++) {
 		if (list[x] >= pivot) {
-			temp = list[j];
-			list[j] = list[x];
-			list[x] = temp;
+			std::swap(list[j], list[x]);
 			j++;
 		}
 		else {
-			temp = list[i];
-			list[i] = list[x];
-			list[x] = temp;
+			std::swap(list[i], list[x]);
 			i++;
 			j++;
 		}
 	}
 
-	if (l - f > 1 || list[f] > list[l]) {
-		temp = list[i];
-		list[i] = pivot;
-		list[l] = temp;
-	}
+	if (l - f > 1 || list[f] > list[l])
+		std::swap(list[i], list[l]);
 
 	if (l - f > 1) {
 		quick(f, i - 1);

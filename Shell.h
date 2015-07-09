@@ -34,9 +34,9 @@ void Shell::sort() {
 
 void Shell::shell() {
 	calcgapsequence();
-	int gap, backgap, temp;
+	int gap, backgap;
 
-	// Runs the sort for on every gap in the gap sequence
+	// // Runs the sort for on every gap in the gap sequence
 	while (!gapsequence.empty()) {
 		gap = gapsequence.top();
 		gapsequence.pop();
@@ -46,18 +46,13 @@ void Shell::shell() {
 
 			// Checks first values are in order
 			if (list[i] > list[i + gap]) {
-				temp = list[i + gap];
-				list[i + gap] = list[i];
-				list[i] = temp;
+				std::swap(list[i], list[i + gap]);
 
 				// Continues moving elements back through list untill their inorder...
 				// ...with their last gap element
 				backgap = i - gap;
 				while (backgap >= 0 && list[backgap] > list[backgap + gap]) {
-					temp = list[backgap + gap];
-					list[backgap + gap] = list[backgap];
-					list[backgap] = temp;
-
+					std::swap(list[backgap], list[backgap + gap]);
 					backgap = backgap - gap;
 				}
 			}
@@ -79,3 +74,8 @@ void Shell::calcgapsequence() {
 inline int Shell::sedgewick_1986(int &i) {
 	return (pow(4, i) + (3 * pow(2, i - 1))) + 1;
 }
+
+
+
+
+
