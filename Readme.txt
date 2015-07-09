@@ -2,6 +2,9 @@ Compare sorting algorithms on a randomly generated list.
 
 Implemented algorithms:
 -Bubble sort
+-Cocktail sort
+-Odd even sort
+-Comb sort
 -Insertion sort
 -Selection sort
 -Merge sort & merge sort in place

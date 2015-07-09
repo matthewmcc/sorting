@@ -36,8 +36,6 @@ void Bubble::bubble() {
 		swap = false;
 		pass++;
 
-		std::cout << "\rPass number: " << pass << std::flush;
-
 		for(int i = 0; i < listsize - pass; i++) {
 			if (list[i] > list[i + 1]) {
 				swap = true;
