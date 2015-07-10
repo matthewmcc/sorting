@@ -1,29 +1,31 @@
 #include <iostream>
 #include <vector>
-#include <algorithm>
 
-// Csort sort class implementing sorting
-class Csort: public Sorting {
+// Csort class implementing sorting
+template <typename T> 
+class Csort : public Sorting<T> {
+
 public:
-	Csort(std::vector<int>, int);
+	Csort(std::vector<T>, int);
 	void sort();
 };
 
-Csort::Csort(std::vector<int> l, int s) {
-	list = l;
-	listsize = s;
-}
+// Constructor defaults from Sorting class constructor
+template <typename T>
+Csort<T>::Csort(std::vector<T> unsortedlist, int unsortlistsize) 
+: Sorting<T>::Sorting(unsortedlist, unsortlistsize) {}
 
-// Sort funciton
-void Csort::sort() {
-	starttimer();
-	std::cout << "Csort, average case: O(n*n)" << std::endl;
+// Function that calls sort function and deals with sort timing
+template <typename T> 
+void Csort<T>::sort() {
+	this->starttimer();
+	std::cout << "Csort, average case: O(n log n)" << std::endl;
 
-	std::sort(list.begin(), list.end());
+	std::sort(this->list.begin(), this->list.end());
 
-	stoptimer("Csort");
+	this->stoptimer("Csort");
 
 	// Checks if sort was successful
-	if (!sorted())
+	if (!this->sorted())
 		std::cout << "Csort failed" << std::endl;
 }

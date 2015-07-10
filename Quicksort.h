@@ -1,35 +1,41 @@
 #include <iostream>
 #include <vector>
 
-class Quicksort: public Sorting {
+// Quicksort sort class implementing sorting
+template <typename T> 
+class Quicksort : public Sorting<T> {
+
 public:
-	Quicksort(std::vector<int>, int);
+	Quicksort(std::vector<T>, int);
 	void sort();
 
 private:
 	std::vector<int> quick(std::vector<int>&, int);
 };
 
-Quicksort::Quicksort(std::vector<int> l, int s) {
-	list = l;
-	listsize = s;
-}
+// Constructor defaults from Sorting class constructor
+template <typename T>
+Quicksort<T>::Quicksort(std::vector<T> unsortedlist, int unsortlistsize) 
+: Sorting<T>::Sorting(unsortedlist, unsortlistsize) {}
 
-void Quicksort::sort() {
-	starttimer();
+// Function that calls sort function and deals with sort timing
+template <typename T> 
+void Quicksort<T>::sort() {
+	this->starttimer();
 	std::cout << "Quicksort, average case: O(n log n)" << std::endl;
 
-	list = quick(list, listsize);
+	this->list = quick(this->list, this->listsize);
 
-	stoptimer("Quicksort");
+	this->stoptimer("Quicksort sort");
 
 	// Checks if sort was successful
-	if (!sorted())
-		std::cout << "Quicksort failed" << std::endl;
+	if (!this->sorted())
+		std::cout << "Quicksort sort failed" << std::endl;
 }
 
 // Recursive quicksort function
-std::vector<int> Quicksort::quick(std::vector<int> &qlist, int qsize) {
+template <typename T>
+std::vector<int> Quicksort<T>::quick(std::vector<int> &qlist, int qsize) {
 	if (qsize < 2)
 		return qlist;
 

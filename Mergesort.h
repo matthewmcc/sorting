@@ -1,36 +1,43 @@
 #include <iostream>
 #include <vector>
 
-class Mergesort: public Sorting {
+// Mergesort sort class implementing sorting
+template <typename T> 
+class Mergesort : public Sorting<T> {
+
 public:
-	Mergesort(std::vector<int>, int);
+	Mergesort(std::vector<T>, int);
 	void sort();
 
 private:
 	std::vector<int> merge(std::vector<int>&, int);
-	inline std::vector<int> vectormerge(const std::vector<int>&, const std::vector<int>&);
+	inline std::vector<int> vectormerge(const std::vector<int>&, 
+		const std::vector<int>&);
 };
 
-Mergesort::Mergesort(std::vector<int> l, int s) {
-	list = l;
-	listsize = s;
-}
+// Constructor defaults from Sorting class constructor
+template <typename T>
+Mergesort<T>::Mergesort(std::vector<T> unsortedlist, int unsortlistsize) 
+: Sorting<T>::Sorting(unsortedlist, unsortlistsize) {}
 
-void Mergesort::sort() {
-	starttimer();
+// Function that calls sort function and deals with sort timing
+template <typename T> 
+void Mergesort<T>::sort() {
+	this->starttimer();
 	std::cout << "Mergesort, average case: O(n log n)" << std::endl;
 
-	list = merge(list, listsize);
+	this->list = merge(this->list, this->listsize);
 
-	stoptimer("Mergesort");
+	this->stoptimer("Mergesort sort");
 
 	// Checks if sort was successful
-	if (!sorted())
-		std::cout << "Mergesort failed" << std::endl;
+	if (!this->sorted())
+		std::cout << "Mergesort sort failed" << std::endl;
 }
 
 // Simple merge sort. Extreme thrashing for code simplistity.
-std::vector<int> Mergesort::merge(std::vector<int> &mlist, int msize) {
+template <typename T> 
+std::vector<int> Mergesort<T>::merge(std::vector<int> &mlist, int msize) {
 	if (msize < 2)
 		return mlist;
 
@@ -50,11 +57,12 @@ std::vector<int> Mergesort::merge(std::vector<int> &mlist, int msize) {
 	right = merge(right, right.size());
 
 	// Merges the 2 ordered lists and returns result
-	return vectormerge(left, right);
+	return this->vectormerge(left, right);
 }
 
 // Merges to vectors
-inline std::vector<int> Mergesort::vectormerge(const std::vector<int>& left, 
+template <typename T> 
+inline std::vector<int> Mergesort<T>::vectormerge(const std::vector<int>& left, 
 	const std::vector<int>& right) {
 	std::vector<int> mlist;
 	mlist.reserve(left.size() + right.size());

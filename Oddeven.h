@@ -2,51 +2,57 @@
 #include <vector>
 
 // Oddeven sort class implementing sorting
-class Oddeven: public Sorting {
+template <typename T> 
+class Oddeven : public Sorting<T> {
+
 public:
-	Oddeven(std::vector<int>, int);
+	Oddeven(std::vector<T>, int);
 	void sort();
+
+private:
 	void oddeven();
 };
 
-Oddeven::Oddeven(std::vector<int> l, int s) {
-	list = l;
-	listsize = s;
-}
+// Constructor defaults from Sorting class constructor
+template <typename T>
+Oddeven<T>::Oddeven(std::vector<T> unsortedlist, int unsortlistsize) 
+: Sorting<T>::Sorting(unsortedlist, unsortlistsize) {}
 
-// Sort funciton
-void Oddeven::sort() {
-	starttimer();
+// Function that calls sort function and deals with sort timing
+template <typename T> 
+void Oddeven<T>::sort() {
+	this->starttimer();
 	std::cout << "Oddeven sort, average case: O(n*n)" << std::endl;
 
 	oddeven();
 
-	stoptimer("Oddeven sort");
+	this->stoptimer("Oddeven sort");
 
 	// Checks if sort was successful
-	if (!sorted())
+	if (!this->sorted())
 		std::cout << "Oddeven sort failed" << std::endl;
 }
 
-
-void Oddeven::oddeven() {
+// Oddeven sort function, a simple extension of bubble sort
+template <typename T> 
+void Oddeven<T>::oddeven() {
 	bool swap = true;
 	int odd = 0, even = 1;
 
 	while (swap) {
 		swap = false;
-		// Bubble sort form the left
-		for (int o = odd; o < listsize; o += 2) {
-			if (list[o] > list[o + 1]) {
-				std::swap(list[o], list[o + 1]);
+		// Oddeven sort form the left
+		for (int o = odd; o < this->listsize; o += 2) {
+			if (this->list[o] > this->list[o + 1]) {
+				std::swap(this->list[o], this->list[o + 1]);
 				swap = true;
 			}
 		}
 
-		// Bubble sort from the right
-		for (int e = even; e < listsize; e += 2) {
-			if (list[e] > list[e + 1]){
-				std::swap(list[e], list[e + 1]);
+		// Oddeven sort from the right
+		for (int e = even; e < this->listsize; e += 2) {
+			if (this->list[e] > this->list[e + 1]){
+				std::swap(this->list[e], this->list[e + 1]);
 				swap = true;
 			}
 		}

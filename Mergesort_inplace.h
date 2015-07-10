@@ -1,38 +1,43 @@
 #include <iostream>
 #include <vector>
 
-class Mergesort_inplace: public Sorting {
+// Mergesort in place sort class implementing sorting
+template <typename T> 
+class Mergesort_inplace : public Sorting<T> {
 public:
-	Mergesort_inplace(std::vector<int>, int);
+	Mergesort_inplace(std::vector<T>, int);
 	void sort();
 
 private:
-	Linkedlist merge(Linkedlist&);
-	inline Linkedlist nextlink(Linkedlist&, int);
+	Linkedlist<T> merge(Linkedlist<T>&);
+	inline Linkedlist<T> nextlink(Linkedlist<T>&, int);
 };
 
-Mergesort_inplace::Mergesort_inplace(std::vector<int> l, int s) {
-	list = l;
-	listsize = s;
-}
+// Constructor defaults from Sorting class constructor
+template <typename T>
+Mergesort_inplace<T>::Mergesort_inplace(std::vector<T> unsortedlist, int unsortlistsize) 
+: Sorting<T>::Sorting(unsortedlist, unsortlistsize) {}
 
-void Mergesort_inplace::sort() {
+// Function that calls sort function and deals with sort timing
+template <typename T>
+void Mergesort_inplace<T>::sort() {
 	std::cout << "Mergesort in place, average case: O(n log n)" << std::endl;
 
-	Linkedlist ll = vectortolink();
+	Linkedlist<T> ll = this->vectortolink();
 
-	starttimer();
+	this->starttimer();
 	ll = merge(ll);
-	stoptimer("Mergesort in place");
+	this->stoptimer("Mergesort in place");
 
 	// Checks if sort was successful
-	if (!sortedlink(ll))
+	if (!this->sortedlink(ll))
 		std::cout << "Merge sort in place failed" << std::endl;
 }
 
 // Gets the newnode
-inline Linkedlist Mergesort_inplace::nextlink(Linkedlist &ll, int lsize) {
-	Linkedlist nextll = ll;
+template <typename T>
+inline Linkedlist<T> Mergesort_inplace<T>::nextlink(Linkedlist<T> &ll, int lsize) {
+	Linkedlist<T> nextll = ll;
 
 	for (int i = 0; i < lsize; i++) {
 		ll.tail = nextll.head;
@@ -45,27 +50,28 @@ inline Linkedlist Mergesort_inplace::nextlink(Linkedlist &ll, int lsize) {
 }
 
 // Main in place merge sort function
-Linkedlist Mergesort_inplace::merge(Linkedlist &ll) {
+template <typename T>
+Linkedlist<T> Mergesort_inplace<T>::merge(Linkedlist<T> &ll) {
 	if (ll.lsize < 2)
 		return ll;
 
 	// Halves the linked list and runs merge recursivly on new halves
-	Linkedlist nll = nextlink(ll, (ll.lsize / 2)); //, ll.lsize - m};
+	Linkedlist<T> nll = nextlink(ll, (ll.lsize / 2)); //, ll.lsize - m};
 	ll.lsize = ll.lsize / 2;
 
 	ll = merge(ll);
 	nll = merge(nll);
 
 	// Primes Linkedlist with the first value
-	Linkedlist newlink;
-	Node *lnode = ll.head, *rnode = nll.head;
+	Linkedlist<T> newlink;
+	Node<T> *lnode = ll.head, *rnode = nll.head;
 
 	if (ll.head->value < nll.head->value) {
-		newlink = (Linkedlist){ lnode, (ll.lsize + nll.lsize), lnode };
+		newlink = (Linkedlist<T>){ lnode, (ll.lsize + nll.lsize), lnode };
 		lnode = lnode->node;
 	}
 	else {
-		newlink = (Linkedlist){ rnode, (ll.lsize + nll.lsize), rnode };
+		newlink = (Linkedlist<T>){ rnode, (ll.lsize + nll.lsize), rnode };
 		rnode = rnode->node;
 	}
 

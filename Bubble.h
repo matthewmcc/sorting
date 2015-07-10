@@ -2,33 +2,40 @@
 #include <vector>
 
 // Bubble sort class implementing sorting
-class Bubble: public Sorting {
+template <typename T> 
+class Bubble : public Sorting<T> {
+
 public:
-	Bubble(std::vector<int>, int);
+	Bubble(std::vector<T>, int);
 	void sort();
+
+private:
 	void bubble();
 };
 
-Bubble::Bubble(std::vector<int> l, int s) {
-	list = l;
-	listsize = s;
-}
+// Constructor defaults from Sorting class constructor
+template <typename T>
+Bubble<T>::Bubble(std::vector<T> unsortedlist, int unsortlistsize) 
+: Sorting<T>::Sorting(unsortedlist, unsortlistsize) {}
 
-// Sort funciton
-void Bubble::sort() {
-	starttimer();
+// Function that calls sort function and deals with sort timing
+template <typename T> 
+void Bubble<T>::sort() {
+	this->starttimer();
 	std::cout << "Bubble sort, average case: O(n*n)" << std::endl;
 
 	bubble();
 
-	stoptimer("Bubble sort");
+	this->stoptimer("Bubble sort");
 
 	// Checks if sort was successful
-	if (!sorted())
+	if (!this->sorted())
 		std::cout << "Bubble sort failed" << std::endl;
 }
 
-void Bubble::bubble() {
+// Bubble sort function
+template <typename T>
+void Bubble<T>::bubble() {
 	bool swap = true;
 	int pass = 0;
 
@@ -36,10 +43,10 @@ void Bubble::bubble() {
 		swap = false;
 		pass++;
 
-		for(int i = 0; i < listsize - pass; i++) {
-			if (list[i] > list[i + 1]) {
+		for(int i = 0; i < this->listsize - pass; i++) {
+			if (this->list[i] > this->list[i + 1]) {
 				swap = true;
-				std::swap(list[i], list[i + 1]);
+				std::swap(this->list[i], this->list[i + 1]);
 			}
 		}
 	}

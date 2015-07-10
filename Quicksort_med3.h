@@ -1,40 +1,47 @@
 #include <iostream>
 #include <vector>
 
-class Quicksort_med3: public Sorting {
+// Quicksort_med3 sort class implementing sorting
+template <typename T> 
+class Quicksort_med3 : public Sorting<T> {
+
 public:
-	Quicksort_med3(std::vector<int>, int);
+	Quicksort_med3(std::vector<T>, int);
 	void sort();
 
 private:
-	std::vector<int> quick(std::vector<int>&, int);
-	inline int med3(const std::vector<int>&, const int&);
+	std::vector<T> quick(std::vector<T>&, int);
+	inline T med3(const std::vector<T>&, const int&);
 };
 
-Quicksort_med3::Quicksort_med3(std::vector<int> l, int s) {
-	list = l;
-	listsize = s;
-}
+// Constructor defaults from Sorting class constructor
+template <typename T>
+Quicksort_med3<T>::Quicksort_med3(std::vector<T> unsortedlist, int unsortlistsize) 
+: Sorting<T>::Sorting(unsortedlist, unsortlistsize) {}
 
-void Quicksort_med3::sort() {
-	starttimer();
-	std::cout << "Quicksort median of 3, average case: O(n log n)" << std::endl;
+// Function that calls sort function and deals with sort timing
+template <typename T> 
+void Quicksort_med3<T>::sort() {
+	this->starttimer();
+	std::cout << "Quicksort median of 3, average case: O(n*n)" << std::endl;
 
-	list = quick(list, listsize);
+	this->list = quick(this->list, this->listsize);
 
-	stoptimer("Quicksort median of 3");
+	this->stoptimer("Quicksort median of 3");
 
 	// Checks if sort was successful
-	if (!sorted())
+	if (!this->sorted())
 		std::cout << "Quicksort median of 3 failed" << std::endl;
 }
 
+
 // Recursive quicksort function
-std::vector<int> Quicksort_med3::quick(std::vector<int> &qlist, int qsize) {
+template <typename T>
+std::vector<T> Quicksort_med3<T>::quick(std::vector<T> &qlist, int qsize) {
 	if (qsize < 2)
 		return qlist;
 
-	std::vector<int> low, high;
+	std::vector<T> low, high;
 
 	int pivot = med3(qlist, qlist.size());
 
@@ -57,9 +64,10 @@ std::vector<int> Quicksort_med3::quick(std::vector<int> &qlist, int qsize) {
 	return low;
 } 
 
-// Selects 3 pivots and return the median 
-inline int Quicksort_med3::med3(const std::vector<int> &qlist, const int &qsize) {
-	std::vector<int> pl;
+// Selects 3 pivots and return the median
+template <typename T>
+inline T Quicksort_med3<T>::med3(const std::vector<T> &qlist, const int &qsize) {
+	std::vector<T> pl;
 
 	// If the list given is small a rand pivot will be returned
 	if (qsize < 4)

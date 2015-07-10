@@ -2,41 +2,62 @@
 #include <vector>
 
 // Linkedlist node structure
+template <typename T> 
 struct Node {
-	Node *node;
-	int value;
+	Node<T> *node;
+	T value;
 };
 
 // Linkedlist structure
+template <typename T> 
 struct Linkedlist {
-	Node *head;
-	int lsize;
-	Node *tail;
+	Node<T> *head;
+	T lsize;
+	Node<T> *tail;
+};
+
+// BST structure
+template <typename T>
+struct BSTree {
+	T value;
+	BSTree<T> *left;
+	BSTree<T> *right;
 };
 
 // Parent sorting class for sorting algrithms
+template <typename T> 
 class Sorting {
+
 protected:
-	std::vector<int> list;
+	explicit Sorting(std::vector<T>, int);
+	bool sorted();
+	bool sortedlink(Linkedlist<T>&);
+	Linkedlist<T> vectortolink();
+	void starttimer();
+	void stoptimer(std::string);
+
+	std::vector<T> list;
 	int listsize;
 	std::clock_t start;
-
-public:
-	bool sorted();
-	bool sortedlink(Linkedlist&);
-	Linkedlist vectortolink();
-	void starttimer();
-	void stoptimer(std::string);	
 };
 
+// Constructor to be used by inherited classes
+template <typename T>
+Sorting<T>::Sorting(std::vector<T> l, int s) {
+	list = l;
+	listsize = s;
+}
+
 // Checks if vector is sorted
-bool Sorting::sorted() {
+template <typename T>
+bool Sorting<T>::sorted() {
 	for(int i = 0; i < listsize - 1; i++) {
 		if (list[i] > list[i + 1]) {
 			std::cout << "Failure at index: " << i << std::endl;
 			std::cout << list[i] << " : " << list[i + 1] << std::endl;
-			for(int j : list) {
-				std::cout << j << std::endl;
+
+			for(int j = 0; j < list.size(); j++) {
+				std::cout << list[j] << std::endl;
 			}
 			return false;
 		}
@@ -46,8 +67,9 @@ bool Sorting::sorted() {
 }
 
 // Checks if linked list is correctly sorted
-bool Sorting::sortedlink(Linkedlist &ll) {
-	Node *p = ll.head;
+template <typename T>
+bool Sorting<T>::sortedlink(Linkedlist<T> &ll) {
+	Node<T> *p = ll.head;
 
 	while (p->node) {
 		if (p->value > p->node->value) {
@@ -60,14 +82,15 @@ bool Sorting::sortedlink(Linkedlist &ll) {
 }
 
 // Changes the vector to a Linkedlist
-Linkedlist Sorting::vectortolink() {
-	Node *n = new Node;
-	*n = (Node){ new Node, list[0] };
-	Linkedlist ll = { n, listsize };
+template <typename T>
+Linkedlist<T> Sorting<T>::vectortolink() {
+	Node<T> *n = new Node<T>;
+	*n = (Node<T>){ new Node<T>, list[0] };
+	Linkedlist<T> ll = { n, listsize };
 
 	// Loops through all values in the vector adding them to the new Linkedlist
 	for (int i = 1; i < listsize; i++) {
-		*n->node = (Node){ new Node, list[i] };
+		*n->node = (Node<T>){ new Node<T>, list[i] };
 		n = n->node;
 	}
 
@@ -77,9 +100,12 @@ Linkedlist Sorting::vectortolink() {
 }
 
 // Functions used for timing the algorithms
-void Sorting::starttimer() {
+template <typename T>
+void Sorting<T>::starttimer() {
     start = std::clock();
 }
-void Sorting::stoptimer(std::string sortname) {
+
+template <typename T>
+void Sorting<T>::stoptimer(std::string sortname) {
     std::cout << '\r' << sortname << " duration: " << ( std::clock() - start ) / (double) CLOCKS_PER_SEC << " secs" << std::endl;
 }

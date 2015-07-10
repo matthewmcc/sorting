@@ -1,50 +1,56 @@
 #include <iostream>
 #include <vector>
 
-class Quicksort_inplace: public Sorting {
+// Quicksort_inplace sort class implementing sorting
+template <typename T> 
+class Quicksort_inplace : public Sorting<T> {
+
 public:
-	Quicksort_inplace(std::vector<int>, int);
+	Quicksort_inplace(std::vector<T>, int);
 	void sort();
 
 private:
 	void quick(int, int);
 };
 
-Quicksort_inplace::Quicksort_inplace(std::vector<int> l, int s) {
-	list = l;
-	listsize = s;
-}
+// Constructor defaults from Sorting class constructor
+template <typename T>
+Quicksort_inplace<T>::Quicksort_inplace(std::vector<T> unsortedlist, int unsortlistsize) 
+: Sorting<T>::Sorting(unsortedlist, unsortlistsize) {}
 
-void Quicksort_inplace::sort() {
-	starttimer();
-	std::cout << "Quick sort in place, average case: O(n log n)" << std::endl;
+// Function that calls sort function and deals with sort timing
+template <typename T> 
+void Quicksort_inplace<T>::sort() {
+	this->starttimer();
+	std::cout << "Quicksort_inplace sort, average case: O(n*n)" << std::endl;
 
-	quick(0, listsize - 1);
+	quick(0, this->listsize - 1);
 
-	stoptimer("Quicksort in place");
+	this->stoptimer("Quicksort_inplace sort");
 
 	// Checks if sort was successful
-	if (!sorted())
-		std::cout << "Quicksort in place failed" << std::endl;
+	if (!this->sorted())
+		std::cout << "Quicksort_inplace sort failed" << std::endl;
 }
 
-void Quicksort_inplace::quick(int f, int l) {
-	int pivot = list[l], i = f, j = f;
+template <typename T>
+void Quicksort_inplace<T>::quick(int f, int l) {
+	int pivot = this->list[l], i = f, j = f;
 
 	for (int x = f; x <= l; x++) {
-		if (list[x] >= pivot) {
-			std::swap(list[j], list[x]);
+		if (this->list[x] >= pivot) {
+			std::swap(this->list[j], this->list[x]);
 			j++;
 		}
 		else {
-			std::swap(list[i], list[x]);
+			std::swap(this->list[i], this->list[x]);
 			i++;
 			j++;
 		}
 	}
 
-	if (l - f > 1 || list[f] > list[l])
-		std::swap(list[i], list[l]);
+	if (l - f > 1 || this->list[f] > this->list[l])
+		std::swap(this->list[i], this->list[l]);
 
 	if (l - f > 1) {
 		quick(f, i - 1);
