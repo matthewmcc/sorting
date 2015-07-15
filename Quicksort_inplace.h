@@ -35,25 +35,21 @@ void Quicksort_inplace<T>::sort() {
 
 template <typename T>
 void Quicksort_inplace<T>::quick(int f, int l) {
-	int pivot = this->list[l], i = f, j = f;
+ 	int pivot = this->list[l], i = f;
 
-	for (int x = f; x <= l; x++) {
-		if (this->list[x] >= pivot) {
-			std::swap(this->list[j], this->list[x]);
-			j++;
-		}
-		else {
+	for (int x = f; x < l; x++) {
+		if (this->list[x] < pivot) {
 			std::swap(this->list[i], this->list[x]);
 			i++;
-			j++;
 		}
 	}
 
-	if (l - f > 1 || this->list[f] > this->list[l])
-		std::swap(this->list[i], this->list[l]);
+	if (i > l)
+		i = l;
+	else std::swap(this->list[i], this->list[l]);
 
-	if (l - f > 1) {
+	if (f < l) {
 		quick(f, i - 1);
-		quick(i, l);
+		quick(i + 1, l);
 	}
 }

@@ -11,7 +11,7 @@ public:
 
 private:
 	std::vector<T> quick(std::vector<T>&, int);
-	inline T med3(const std::vector<T>&, const int&);
+	inline int med3(const std::vector<T>&, const int&);
 };
 
 // Constructor defaults from Sorting class constructor
@@ -66,8 +66,8 @@ std::vector<T> Quicksort_med3<T>::quick(std::vector<T> &qlist, int qsize) {
 
 // Selects 3 pivots and return the median
 template <typename T>
-inline T Quicksort_med3<T>::med3(const std::vector<T> &qlist, const int &qsize) {
-	std::vector<T> pl;
+inline int Quicksort_med3<T>::med3(const std::vector<T> &qlist, const int &qsize) {
+	std::vector<int> pl;
 
 	// If the list given is small a rand pivot will be returned
 	if (qsize < 4)

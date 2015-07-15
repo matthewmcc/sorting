@@ -33,7 +33,7 @@ void Cocktail<T>::sort() {
 		std::cout << "Cocktail sort failed" << std::endl;
 }
 
-// Cocktail sort that implements Cocktail altinating from left to right.
+// Cocktail sort that implements Cocktail alternating from left to right.
 template <typename T> 
 void Cocktail<T>::cocktail() {
 	bool swap = true;

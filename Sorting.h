@@ -34,7 +34,7 @@ protected:
 	bool sortedlink(Linkedlist<T>&);
 	Linkedlist<T> vectortolink();
 	void starttimer();
-	void stoptimer(std::string);
+	double stoptimer(std::string);
 
 	std::vector<T> list;
 	int listsize;
@@ -106,6 +106,8 @@ void Sorting<T>::starttimer() {
 }
 
 template <typename T>
-void Sorting<T>::stoptimer(std::string sortname) {
-    std::cout << '\r' << sortname << " duration: " << ( std::clock() - start ) / (double) CLOCKS_PER_SEC << " secs" << std::endl;
+double Sorting<T>::stoptimer(std::string sortname) {
+	double duration = ( std::clock() - this->start ) / (double) CLOCKS_PER_SEC;
+    std::cout << '\r' << sortname << " duration: " << duration << " secs" << std::endl;
+    return duration;
 }

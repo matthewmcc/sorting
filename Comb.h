@@ -12,7 +12,7 @@ public:
 	void sort();
 
 private:
-	void comb();
+	void comb(int, int);
 };
 
 // Constructor defaults from Sorting class constructor
@@ -27,7 +27,7 @@ void Comb<T>::sort() {
 	std::cout << "Comb sort, average case: O(n * n / pow(2, P))" <<
 		" where P is the # of increments" << std::endl;
 
-	comb();
+	comb(0, this->listsize - 1);
 
 	this->stoptimer("Comb sort");
 
@@ -38,22 +38,24 @@ void Comb<T>::sort() {
 
 // Comb sort function, a efficient derivation of bubble sort
 template <typename T>
-void Comb<T>::comb() {
+void Comb<T>::comb(int left, int right) {
 	bool swap = true;
-	int gap = this->listsize / SHRINK_FACTOR;
+	int gap = right - left;
 
-	while(swap || gap != 1) {
+	if (left >= right) return;
+
+	while(swap || gap > 1) {
+		// Srinks gap untill it equals 1
+		if (gap > 1)
+			gap /= SHRINK_FACTOR;
+
 		swap = false;
 
-		for(int i = 0; i + gap < this->listsize; i++) {
+		for(int i = left; i + gap <= right; i++) {
 			if (this->list[i] > this->list[i + gap]) {
 				swap = true;
 				std::swap(this->list[i], this->list[i + gap]);
 			}
 		}
-
-		// Srinks gap untill it equals 1
-		if (gap != 1)
-			gap /= SHRINK_FACTOR;
 	}
 }

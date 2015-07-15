@@ -11,4 +11,9 @@ Implemented algorithms:
 -Quick sort, quick sort median of 3 & quick sort in place 
 -Shell sort
 -Heap sort
+-Ternary heap sort
 -Radix sort
+-Introsort (Quick, Heap, Insertion compilation)
+-IntroM3 (Quick, Heap, Median of 3 compilation)
+-Quickcomb (Quick and Comb sort compilation)
+-Quickinsert (Quick and Insertion compilation)
