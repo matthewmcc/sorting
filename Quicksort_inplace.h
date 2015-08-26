@@ -35,7 +35,8 @@ void Quicksort_inplace<T>::sort() {
 
 template <typename T>
 void Quicksort_inplace<T>::quick(int f, int l) {
- 	int pivot = this->list[l], i = f;
+ 	T pivot = this->list[l];
+ 	int i = f;
 
 	for (int x = f; x < l; x++) {
 		if (this->list[x] < pivot) {

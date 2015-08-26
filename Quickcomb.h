@@ -14,7 +14,7 @@ public:
 
 private:
 	void quick(int, int);
-	void comb(int, int);
+	inline void comb(int, int);
 };
 
 // Constructor defaults from Sorting class constructor
